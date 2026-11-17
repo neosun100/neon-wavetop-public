@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="296" height="20" role="img" aria-label="play in the browser: neon-wavetop.pages.dev" font-family="Verdana, DejaVu Sans, sans-serif" font-size="11">
+<title>play in the browser: neon-wavetop.pages.dev</title>
+<clipPath id="r"><rect width="296" height="20" rx="4"/></clipPath>
+<g clip-path="url(#r)"><rect width="138" height="20" fill="#30343b"/><rect x="138" width="158" height="20" fill="#f0580e"/></g>
+<text x="69" y="14" fill="#fff" text-anchor="middle">play in the browser</text>
+<text x="217" y="14" fill="#fff" text-anchor="middle">neon-wavetop.pages.dev</text>
+</svg>

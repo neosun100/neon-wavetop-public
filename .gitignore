@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.vite/
+.playwright-mcp/
+.omc/
+__pycache__/
+*.log
+.DS_Store
+.env*
+*credentials*
+*secrets*
+# BGM audio is never committed
+public/bgm/
+shots/
+ai-out/

@@ -1,0 +1,22 @@
+{
+  "name": "neon-wavetop",
+  "private": true,
+  "version": "0.3.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc --noEmit && vite build",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "levels:tune": "tsx scripts/levels.ts --tune",
+    "levels:check": "tsx scripts/levels.ts --check",
+    "playtest": "tsx scripts/playtest.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3",
+    "vite": "^5.4.21",
+    "vitest": "^2.1.9"
+  }
+}

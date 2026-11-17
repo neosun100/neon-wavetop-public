@@ -1,0 +1,10 @@
+{
+  "name": "NEON WAVETOP · 霓虹掠海",
+  "short_name": "NEON WAVETOP",
+  "start_url": "./",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "#2468b4",
+  "theme_color": "#2468b4",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

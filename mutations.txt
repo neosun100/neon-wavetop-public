@@ -1,0 +1,157 @@
+# touchstone mutate.py registry (run on the box: uv run --no-project python -B mutate.py mutations.txt --cmd "npx vitest run" --collect-cmd "npx vitest list")
+
+[W1 need ignores hit penalties (the tuning ruler under-reads flak levels)]
+file = src/core/sim.ts
+find = const n = (this.time + this.penalty - this.bonus - Rules.clockBase) / (Rules.clockGates + this.passed);
+replace = const n = (this.time - this.bonus - Rules.clockBase) / (Rules.clockGates + this.passed);
+expect = tests/sim.test.ts
+
+[W2 no mercy after a hit]
+file = src/core/sim.ts
+find = } else if (this.mercy <= 0) {
+replace = } else {
+expect = tests/sim.test.ts
+
+[W3 rings may sit inside the cloud layer]
+file = src/core/sim.ts
+find = if (z + r > cl - 2 && z - r < ch + 2) z =
+replace = if (false) z =
+expect = tests/sim.test.ts
+
+[W4 a knife gate pays the stunt without a roll]
+file = src/core/sim.ts
+find = const stunt = g.knife && c.spin >= 0;
+replace = const stunt = g.knife;
+expect = tests/sim.test.ts
+
+[W5 every plane crossing counts as a pass]
+file = src/core/sim.ts
+find = const pass = off <= g.r + 3;
+replace = const pass = true;
+expect = tests/sim.test.ts
+
+[W6 thrust works on an empty tank]
+file = src/core/sim.ts
+find = thrust: this.dry || !ctl.thrust ? 0 : 1
+replace = thrust: !ctl.thrust ? 0 : 1
+expect = tests/sim.test.ts
+
+[W7 controls are not quantized (what is recorded is not what was flown)]
+file = src/core/sim.ts
+find = turn: Math.round(clamp(turn, -1, 1) * 100)
+replace = turn: clamp(turn, -1, 1) * 100
+expect = tests/sim.test.ts
+
+[W8 a replay that does not match is called exact]
+file = src/core/playtest.ts
+find = verdict: run.digest() === rec.digest && run.tick === rec.result.ticks ? 'exact' : 'diverged'
+replace = verdict: 'exact'
+expect = tests/sim.test.ts
+
+[W9 any text is accepted as a playtest export]
+file = src/core/playtest.ts
+find = if (!t.startsWith(PREFIX)) throw
+replace = if (false) throw
+expect = tests/sim.test.ts
+
+[W10 an untuned level plays on a default]
+file = src/core/tuned.ts
+find = if (!t) throw new Error(JSON.stringify({ error: 'level_not_tuned'
+replace = if (!t) return 5; if (false) throw new Error(JSON.stringify({ error: 'level_not_tuned'
+expect = tests/levels.test.ts
+
+[W11 the playtest report counts diverged records]
+file = scripts/playtest.ts
+find = if (r.verdict !== 'exact') { diverged++; continue; }
+replace = if (false) { diverged++; continue; }
+expect = tests/sim.test.ts
+
+[W12 the daily run ignores the day (everyone would get one fixed course forever)]
+file = src/core/levels.ts
+find = seed: day | 0, name: ['Daily run'
+replace = seed: 1, name: ['Daily run'
+expect = tests/sim.test.ts
+
+[W13 an arch triggers at any height (flying over it starts the trial)]
+file = src/core/trials.ts
+find = if (Math.abs(z - t.start.z) > ARCH_REACH.z) continue;
+replace = if (false) continue;
+expect = tests/sim.test.ts
+
+[W14 arches are not found across the map seam]
+file = src/core/trials.ts
+find = return d > n / 2 ? d - n : d;
+replace = return d;
+expect = tests/sim.test.ts
+
+[W15 a trial starts at the map's spawn point, not at its arch]
+file = src/core/sim.ts
+find = this.craft = s ? makeCraft(s.x, s.y, s.z, s.yaw) : makeCraft(world.spawnX, world.spawnY, FLIGHT.cruise, 0.9);
+replace = this.craft = makeCraft(world.spawnX, world.spawnY, FLIGHT.cruise, 0.9);
+expect = tests/sim.test.ts
+
+[W16 the ring kick has no window (any boost press is a kick)]
+file = src/core/sim.ts
+find = if (ctl.thrust && !this.prevThrust && this.sinceGate <= R.kickWindow && !this.dry) {
+replace = if (ctl.thrust && !this.prevThrust && !this.dry) {
+expect = tests/sim.test.ts
+
+[W17 holding the thrusters through a ring counts as a kick]
+file = src/core/sim.ts
+find = this.prevThrust = ctl.thrust;
+replace = this.prevThrust = false;
+expect = tests/sim.test.ts
+
+[W18 the autopilot boosts without an order]
+file = src/ai/pilot.ts
+find = const edge = o.boost && !this.prevBoost && !v.dry;
+replace = const edge = !this.prevBoost && !v.dry;
+expect = tests/sim.test.ts
+
+[W19 a locked region's arch starts its trial]
+file = src/core/trials.ts
+find = if (!open(t)) continue;
+replace = if (false) continue;
+expect = tests/sim.test.ts
+
+[W20 every region is open from the start]
+file = src/core/trials.ts
+find = export const regionOpen = (biome: number, leagueStars: number): boolean => leagueStars >= REGION_STARS[biome];
+replace = export const regionOpen = (_biome: number, _leagueStars: number): boolean => true;
+expect = tests/sim.test.ts
+
+[W21 a mail run has ordinary short legs]
+file = src/core/sim.ts
+find = const d = (prev ? 250 + rnd() * 170 : 240) * (L.legScale ?? 1);
+replace = const d = prev ? 250 + rnd() * 170 : 240;
+expect = tests/sim.test.ts
+
+[U1 tilt: no dead zone (a resting hand steers)]
+file = src/ui/tilt.ts
+find = if (a <= TiltLimits.dead) return 0;
+replace = if (a <= -1) return 0;
+expect = tests/ui.test.ts
+
+[U2 tilt: landscape is read as portrait]
+file = src/ui/tilt.ts
+find = if (a === 90) { lr = db; fb = -dg; }
+replace = if (a === 9999) { lr = db; fb = -dg; }
+expect = tests/ui.test.ts
+
+[U3 tilt: leaning back also means skim]
+file = src/ui/tilt.ts
+find = skim: fb < -TiltLimits.skimAt
+replace = skim: Math.abs(fb) > TiltLimits.skimAt
+expect = tests/ui.test.ts
+
+[U4 tilt: leaning forward also means boost]
+file = src/ui/tilt.ts
+find = boost: fb > TiltLimits.boostAt
+replace = boost: Math.abs(fb) > TiltLimits.boostAt
+expect = tests/ui.test.ts
+
+[W22 a nudge order is ignored by the autopilot]
+file = src/ai/pilot.ts
+find = + clamp(o.nudge, -1, 1) * W.nudge, 0, az, thrust, o.roll);
+replace = , 0, az, thrust, o.roll);
+expect = tests/sim.test.ts

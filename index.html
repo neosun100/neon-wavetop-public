@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#2468b4" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="NEON WAVETOP" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <title>NEON WAVETOP</title>
+    <meta name="description" content="Thread the rings, skim the wavetops, roll through the flak: a sprite-stack flight run with an autopilot you can race." />
+    <style>
+      :root { --ink: #0b1a33; --paper: #f4f8ff; --gold: #ffe65a; --hot: #f0580e; --cyan: #7df9ff; --pink: #ff5a8c; }
+      html, body { margin: 0; height: 100%; background: #2468b4; overflow: hidden; }
+      #wrap { position: relative; width: 100%; height: 100vh; height: 100dvh; min-height: 320px; overflow: hidden; outline: none; cursor: crosshair;
+        touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent;
+        font: 700 12px/1.2 ui-monospace, "SF Mono", Menlo, Consolas, "PingFang SC", "Microsoft YaHei", monospace; letter-spacing: 0.08em; color: var(--paper); }
+      #cv { position: absolute; display: block; image-rendering: pixelated; }
+      .off { display: none !important; }
+      .chip { position: absolute; padding: 6px 9px; background: rgba(11, 26, 51, 0.72); border: 2px solid rgba(244, 248, 255, 0.22); box-shadow: 3px 3px 0 rgba(11, 26, 51, 0.55);
+        pointer-events: none; white-space: nowrap; text-transform: uppercase; }
+      #score { left: max(10px, env(safe-area-inset-left)); top: max(10px, env(safe-area-inset-top)); }
+      #ring { right: max(10px, env(safe-area-inset-right)); top: max(10px, env(safe-area-inset-top)); }
+      #clock { left: 50%; top: max(10px, env(safe-area-inset-top)); transform: translateX(-50%); font-size: 24px; padding: 6px 14px; border-color: var(--paper); }
+      #clock.low { color: var(--gold); border-color: var(--gold); animation: pulse 0.5s steps(2) infinite; }
+      #gap { left: 50%; top: calc(max(10px, env(safe-area-inset-top)) + 46px); transform: translateX(-50%); }
+      #gap.ahead { color: #8cffaa; } #gap.behind { color: #ff9a8c; }
+      #alt { left: 50%; top: calc(max(10px, env(safe-area-inset-top)) + 76px); transform: translateX(-50%); color: var(--gold); }
+      #intent { right: max(10px, env(safe-area-inset-right)); top: calc(max(10px, env(safe-area-inset-top)) + 34px); color: var(--cyan); border-color: var(--cyan); pointer-events: auto; cursor: pointer; }
+      #fuel { left: 50%; bottom: max(14px, env(safe-area-inset-bottom)); transform: translateX(-50%); width: min(44vw, 240px); padding: 4px; }
+      #fuel i { display: block; height: 8px; width: 100%; background: var(--hot); transform-origin: left; }
+      #fuel.skim i { background: var(--cyan); } #fuel.dry i { background: #7a2f1a; }
+      #banner { left: 50%; top: 30%; transform: translate(-50%, -50%); font-size: 18px; padding: 9px 16px; border-color: var(--gold); color: var(--gold); }
+      #hint { left: 50%; bottom: calc(max(14px, env(safe-area-inset-bottom)) + 30px); transform: translateX(-50%); max-width: 94vw; white-space: normal; text-align: center;
+        line-height: 1.6; font-weight: 400; font-size: 11px; }
+      #map { position: absolute; left: max(10px, env(safe-area-inset-left)); top: calc(max(10px, env(safe-area-inset-top)) + 40px); width: 128px; height: 128px;
+        image-rendering: pixelated; border: 2px solid rgba(244, 248, 255, 0.35); box-shadow: 3px 3px 0 rgba(11, 26, 51, 0.55); pointer-events: none; }
+      #wrap.fingers #map { top: calc(max(10px, env(safe-area-inset-top)) + 84px); width: 96px; height: 96px; }
+      #hurt { position: absolute; inset: 0; pointer-events: none; opacity: 0; box-shadow: inset 0 0 0 10px rgba(240, 60, 20, 0.9), inset 0 0 90px 30px rgba(240, 60, 20, 0.6); transition: opacity 0.35s; }
+      @keyframes pulse { 50% { opacity: 0.55; } }
+
+      .card { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 16px;
+        background: rgba(11, 26, 51, 0.5); text-align: center; overflow-y: auto; cursor: default; touch-action: pan-y; }
+      .card h1 { margin: 0; font-size: clamp(30px, 8.5vw, 84px); letter-spacing: 0.14em; line-height: 1; color: var(--paper);
+        text-shadow: 4px 4px 0 var(--hot), 8px 8px 0 var(--ink); }
+      .card h1 small { display: block; font-size: 0.32em; letter-spacing: 0.5em; color: var(--cyan); text-shadow: 2px 2px 0 var(--ink); margin-bottom: 0.4em; }
+      .card h2 { margin: 0; font-size: clamp(20px, 5vw, 40px); letter-spacing: 0.12em; text-shadow: 3px 3px 0 var(--ink); text-transform: uppercase; }
+      .card p { margin: 0; max-width: 620px; line-height: 1.7; font-weight: 400; text-shadow: 1px 1px 0 var(--ink); }
+      .card b { color: var(--gold); }
+      .col { display: flex; flex-direction: column; gap: 8px; min-width: min(320px, 86vw); }
+      .row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; align-items: center; }
+      button.b { font: inherit; letter-spacing: inherit; color: var(--paper); background: var(--ink); border: 2px solid var(--paper); padding: 11px 14px; cursor: pointer;
+        box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.45); text-transform: uppercase; touch-action: manipulation; }
+      button.b:hover, button.b:focus-visible { background: var(--hot); outline: none; }
+      button.b:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.45); }
+      button.b.main { background: var(--hot); border-color: var(--gold); }
+      button.b.sel { background: var(--gold); color: var(--ink); }
+      button.b[disabled] { opacity: 0.4; cursor: default; background: var(--ink); }
+      .grid { display: grid; grid-template-columns: repeat(5, minmax(54px, 96px)); gap: 6px; }
+      .grid .ch { grid-column: 1 / -1; text-align: left; color: var(--cyan); margin-top: 6px; text-transform: uppercase; }
+      .grid button.b { padding: 8px 2px; font-size: 11px; line-height: 1.5; }
+      .stars { color: var(--gold); letter-spacing: 0.1em; }
+      .stars i { font-style: normal; color: rgba(244, 248, 255, 0.28); }
+      .big { font-size: 22px; }
+      table.t { border-collapse: collapse; margin: 0 auto; }
+      table.t td { padding: 3px 10px; text-align: left; font-weight: 400; }
+      table.t td:last-child { text-align: right; font-weight: 700; }
+      .note { font-size: 11px; opacity: 0.85; }
+      textarea.x { width: min(560px, 88vw); height: 80px; font: 10px ui-monospace, monospace; }
+
+      .btn { position: absolute; display: flex; align-items: center; justify-content: center; width: 70px; height: 54px; border: 2px solid rgba(244, 248, 255, 0.4);
+        background: rgba(11, 26, 51, 0.66); color: inherit; font: inherit; letter-spacing: inherit; text-transform: uppercase; touch-action: none; }
+      #bView { left: max(12px, env(safe-area-inset-left)); bottom: max(12px, env(safe-area-inset-bottom)); }
+      /* tilt: a bar that shows how far the phone is leaning, so it is plain that tilt is being read */
+      #tiltbar { position: absolute; left: 50%; bottom: calc(max(12px, env(safe-area-inset-bottom)) + 104px); width: 52px; height: 52px; margin-left: -26px;
+        background: rgba(11, 26, 51, 0.72); border: 2px solid rgba(244, 248, 255, 0.35); pointer-events: none; }
+      #tiltbar.hot { border-color: var(--hot); }
+      #tiltbar::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; border-left: 1px solid rgba(244, 248, 255, 0.25); }
+      #tiltbar::after { content: ''; position: absolute; top: 50%; left: 0; right: 0; border-top: 1px solid rgba(244, 248, 255, 0.25); }
+      #tiltbar i { position: absolute; z-index: 1; top: 50%; left: 50%; width: 10px; height: 10px; margin: -7px 0 0 -7px; background: var(--cyan); border: 2px solid var(--ink); }
+      #call { left: 50%; top: 42%; transform: translate(-50%, -50%); font-size: 20px; padding: 10px 18px; color: var(--ink); background: var(--gold); border-color: var(--paper); animation: pulse 0.24s steps(2) infinite; }
+      #call.kick { background: var(--cyan); }
+      #bSkim { right: calc(max(12px, env(safe-area-inset-right)) + 94px); bottom: max(12px, env(safe-area-inset-bottom)); }
+      #bSkim.on { background: #0e6a80; border-color: var(--cyan); }
+      @media (prefers-reduced-motion: reduce) { #call { animation: none; } }
+      #bAuto { left: calc(max(12px, env(safe-area-inset-left)) + 78px); bottom: max(12px, env(safe-area-inset-bottom)); }
+      #bBoost { right: max(12px, env(safe-area-inset-right)); bottom: max(12px, env(safe-area-inset-bottom)); width: 86px; height: 66px; }
+      #bPause { left: max(10px, env(safe-area-inset-left)); top: calc(max(10px, env(safe-area-inset-top)) + 34px); width: 54px; height: 40px; }
+      /* fingers: the bottom edge belongs to the buttons — the hint and the thrust bar move clear of them */
+      #wrap.fingers #hint { bottom: auto; top: calc(max(10px, env(safe-area-inset-top)) + 118px); max-width: 80vw; font-size: 10px; line-height: 1.45; }
+      #wrap.fingers #banner { top: 40%; }
+      #wrap.fingers #call { top: 50%; }
+      #wrap.fingers #fuel { bottom: calc(max(12px, env(safe-area-inset-bottom)) + 76px); }
+      @media (max-width: 520px) { #gap { font-size: 10px; padding: 5px 6px; } #clock { font-size: 20px; } .chip { letter-spacing: 0.04em; } }
+      .btn.on { background: var(--hot); border-color: var(--paper); }
+      #bAuto.on { background: #0e6a80; border-color: var(--cyan); }
+      @media (prefers-reduced-motion: reduce) { #clock.low { animation: none; } }
+    </style>
+  </head>
+  <body>
+    <div id="wrap" tabindex="0">
+      <canvas id="cv" role="img" aria-label="A pixel-art fighter jet, built from stacked slices, flying a course of rings over islands."></canvas>
+      <div id="hurt"></div>
+      <canvas id="map" class="off" width="128" height="128" aria-label="Map of the open skies: explored regions, trial arches and your position"></canvas>
+      <div id="score" class="chip off"></div>
+      <div id="clock" class="chip off"></div>
+      <div id="ring" class="chip off"></div>
+      <div id="gap" class="chip off"></div>
+      <div id="call" class="chip off"></div>
+      <div id="tiltbar" class="off" aria-hidden="true"><i></i></div>
+      <div id="alt" class="chip off"></div>
+      <div id="intent" class="chip off"></div>
+      <div id="fuel" class="chip off"><i></i></div>
+      <div id="banner" class="chip off"></div>
+      <div id="hint" class="chip off"></div>
+      <button id="bView" class="btn off" type="button"></button>
+      <button id="bAuto" class="btn off" type="button"></button>
+      <button id="bSkim" class="btn off" type="button"></button>
+      <button id="bBoost" class="btn off" type="button"></button>
+      <button id="bPause" class="btn off" type="button"></button>
+      <div id="panel" class="card"></div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

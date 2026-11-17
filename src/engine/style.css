@@ -1,0 +1,24 @@
+/* GENERATED from gameforge/src/style.css — do not edit. Change ~/Code/gameforge, then run: node ~/Code/gameforge/sync.mjs <game>. Checked by tests/engine.test.ts. */
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #03040c;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+#view {
+  display: block;
+  position: fixed;
+  inset: 0;
+  cursor: crosshair;
+}
+/* Read by the app to learn notch / home-indicator insets (env() is CSS-only). */
+#safe-probe {
+  position: fixed;
+  visibility: hidden;
+  pointer-events: none;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}

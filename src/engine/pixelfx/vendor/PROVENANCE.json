@@ -1,0 +1,156 @@
+{
+  "upstream": "pixelfx",
+  "commit": "a84159688af3ca37a4be05a0d422b94451b2e24e",
+  "license": "MIT",
+  "files": {
+    "LICENSE": {
+      "from": "LICENSE",
+      "upstreamSha256": "0a77565a50c3462831244452f129c38d2adc4fd07897cbeba8adc943f958604e",
+      "sha256": "0a77565a50c3462831244452f129c38d2adc4fd07897cbeba8adc943f958604e"
+    },
+    "core/math.js": {
+      "from": "src/core/math.js",
+      "upstreamSha256": "da45e1ed43f7d119dd80fbe97c7de2b35b4ea95dea8781671c296ee5942ac0bc",
+      "sha256": "da45e1ed43f7d119dd80fbe97c7de2b35b4ea95dea8781671c296ee5942ac0bc"
+    },
+    "core/color.js": {
+      "from": "src/core/color.js",
+      "upstreamSha256": "4e63f3074df7c1e138f721959858d12e4f6ccc2bf4f8e98c576efbae51241e54",
+      "sha256": "4e63f3074df7c1e138f721959858d12e4f6ccc2bf4f8e98c576efbae51241e54"
+    },
+    "core/particles.js": {
+      "from": "src/core/particles.js",
+      "upstreamSha256": "867e58baf522278b4aad383c7224c599cff9ba93268b5eac9485a39a3809477b",
+      "sha256": "867e58baf522278b4aad383c7224c599cff9ba93268b5eac9485a39a3809477b"
+    },
+    "core/shapes.js": {
+      "from": "src/core/shapes.js",
+      "upstreamSha256": "3e28f77e25b3083949f083c74304ead6826b7b1da20a658ccb114ab531fc8898",
+      "sha256": "3e28f77e25b3083949f083c74304ead6826b7b1da20a658ccb114ab531fc8898"
+    },
+    "core/sim.js": {
+      "from": "src/core/sim.js",
+      "upstreamSha256": "517febe05b72de9d07e3596c019b9bb01e1f97a74089a30fa80e9e98849ba4b0",
+      "sha256": "517febe05b72de9d07e3596c019b9bb01e1f97a74089a30fa80e9e98849ba4b0"
+    },
+    "core/painter.js": {
+      "from": "src/core/painter.js",
+      "upstreamSha256": "5b8ada6a25cdf1e63ae3684cc56276c61306558dc0a3a827a6a39ab038f74681",
+      "sha256": "5b8ada6a25cdf1e63ae3684cc56276c61306558dc0a3a827a6a39ab038f74681"
+    },
+    "core/font.js": {
+      "from": "src/core/font.js",
+      "upstreamSha256": "c094f1d3a9f94478a255f1cc81aa7ccd2c2ba7a97fc1227a29d268acc1f2ec7c",
+      "sha256": "c094f1d3a9f94478a255f1cc81aa7ccd2c2ba7a97fc1227a29d268acc1f2ec7c"
+    },
+    "core/fx.js": {
+      "from": "src/core/fx.js",
+      "upstreamSha256": "a959c5f7b1c15ba8e07cb26e5b1ccc0bce0aef54ca14cf01f9d6e794cf4e5a0b",
+      "sha256": "a959c5f7b1c15ba8e07cb26e5b1ccc0bce0aef54ca14cf01f9d6e794cf4e5a0b"
+    },
+    "core/actor.js": {
+      "from": "src/core/actor.js",
+      "upstreamSha256": "5c867a24a88e93520d020b77190f12db265eb8fc357136ce3d92de05e19e63c2",
+      "sha256": "5c867a24a88e93520d020b77190f12db265eb8fc357136ce3d92de05e19e63c2"
+    },
+    "fx/impacts/_lib.js": {
+      "from": "src/fx/impacts/_lib.js",
+      "upstreamSha256": "0f47f85f805295eac267f159e27ce88a8766bbcd4e3b31c75359c97471861d9f",
+      "sha256": "0f47f85f805295eac267f159e27ce88a8766bbcd4e3b31c75359c97471861d9f"
+    },
+    "fx/impacts/hit-spark.js": {
+      "from": "src/fx/impacts/hit-spark.js",
+      "upstreamSha256": "b0f2d0e5337ab2fff3a6a8995e6404fed72512bdcd1bc92838a60bf879bc732a",
+      "sha256": "b0f2d0e5337ab2fff3a6a8995e6404fed72512bdcd1bc92838a60bf879bc732a"
+    },
+    "fx/impacts/crit-hit.js": {
+      "from": "src/fx/impacts/crit-hit.js",
+      "upstreamSha256": "c6af9303f0e463051696796a5886236d91182594e1d4fadee2067b9cf82ba857",
+      "sha256": "c6af9303f0e463051696796a5886236d91182594e1d4fadee2067b9cf82ba857"
+    },
+    "fx/impacts/parry.js": {
+      "from": "src/fx/impacts/parry.js",
+      "upstreamSha256": "ba31c0c5ee19e032ee3de7f1db57846200683529db52d383623ddc4b240941ca",
+      "sha256": "ba31c0c5ee19e032ee3de7f1db57846200683529db52d383623ddc4b240941ca"
+    },
+    "fx/impacts/ricochet.js": {
+      "from": "src/fx/impacts/ricochet.js",
+      "upstreamSha256": "776de66636999f2bc0d847b72f25927012eb711f73ce639cb320c7b4991eb22d",
+      "sha256": "4771860912057df010df3f2a90728e97b4a79d8cf72da5d111d9c99f40b71b35"
+    },
+    "fx/pickups/_lib.js": {
+      "from": "src/fx/pickups/_lib.js",
+      "upstreamSha256": "85312a8df8ee5ae76a296ebf6da73bb3ffa11db451db999013a960fc59e062de",
+      "sha256": "85312a8df8ee5ae76a296ebf6da73bb3ffa11db451db999013a960fc59e062de"
+    },
+    "fx/pickups/collect-burst.js": {
+      "from": "src/fx/pickups/collect-burst.js",
+      "upstreamSha256": "14e767332f999978b6234165dde880f7dd21e77eec11f8bb094ae58d9a4d667b",
+      "sha256": "e224f8729c8553790c60c47f0bc5fd7b93a40185aba19f53122d9f6f4326a2c7"
+    },
+    "fx/explosions/_lib.js": {
+      "from": "src/fx/explosions/_lib.js",
+      "upstreamSha256": "3571c77ac617a36b6dd1c4c3b6f4c157dc317ca0033139fe460a737b004d936c",
+      "sha256": "3571c77ac617a36b6dd1c4c3b6f4c157dc317ca0033139fe460a737b004d936c"
+    },
+    "fx/explosions/plasma-explosion.js": {
+      "from": "src/fx/explosions/plasma-explosion.js",
+      "upstreamSha256": "28856fa225a4259423721458785ab5305785ae283da6d94f78cc6b2eae3dd771",
+      "sha256": "d79044ed191422e7c4592a47457892eaf9bab2168b050885c06895e1174a6d78"
+    },
+    "fx/explosions/implosion.js": {
+      "from": "src/fx/explosions/implosion.js",
+      "upstreamSha256": "131f8898e7238d0b5d7dde08cb0b856d1cbe787ad1d36b058993e96086b2be79",
+      "sha256": "cae2be32fa210e2b2ed1107d475881b944c408ac84d32ce456765711d72480a3"
+    },
+    "fx/explosions/firework-burst.js": {
+      "from": "src/fx/explosions/firework-burst.js",
+      "upstreamSha256": "3d532f7a54ae16aceb476fff57033e423ae5e12c32625e0a6d8b6e4d935783aa",
+      "sha256": "7ac5c839443f27ee6a67d1d29ce056e3ae86ff58adc6830213282021836d73f2"
+    },
+    "NOTICE.md": {
+      "from": "NOTICE.md",
+      "upstreamSha256": "d12932473f98b1a3f0b5820ae23d568b52e39294ba7c2d60c0649a93a808af3b",
+      "sha256": "c4a97f30c09992da9c064f72d9c4b8f3245ae7ce419fef9146391d0353057485",
+      "appended": true
+    }
+  },
+  "ours": {
+    "core/index.js": "25afe8347ef393fd11205482eef211990e33a433b3d1febae7f708f742e1af85",
+    "fx/impacts/hit-spark.d.ts": "51dfb52dfdf2ea73ef87c71c999ffa180e9bb3438011ff055530bdbe7657ed73",
+    "fx/impacts/crit-hit.d.ts": "51dfb52dfdf2ea73ef87c71c999ffa180e9bb3438011ff055530bdbe7657ed73",
+    "fx/impacts/parry.d.ts": "51dfb52dfdf2ea73ef87c71c999ffa180e9bb3438011ff055530bdbe7657ed73",
+    "fx/impacts/ricochet.d.ts": "51dfb52dfdf2ea73ef87c71c999ffa180e9bb3438011ff055530bdbe7657ed73",
+    "fx/pickups/collect-burst.d.ts": "51dfb52dfdf2ea73ef87c71c999ffa180e9bb3438011ff055530bdbe7657ed73",
+    "fx/explosions/plasma-explosion.d.ts": "51dfb52dfdf2ea73ef87c71c999ffa180e9bb3438011ff055530bdbe7657ed73",
+    "fx/explosions/implosion.d.ts": "51dfb52dfdf2ea73ef87c71c999ffa180e9bb3438011ff055530bdbe7657ed73",
+    "fx/explosions/firework-burst.d.ts": "51dfb52dfdf2ea73ef87c71c999ffa180e9bb3438011ff055530bdbe7657ed73"
+  },
+  "patches": [
+    {
+      "id": "ricochet-no-stone",
+      "file": "fx/impacts/ricochet.js",
+      "why": "the stone grit and dust are the only non-light pixels on an APEX track: a tan chip on the car for 0.4 s reads as dirt (review 07 F8)"
+    },
+    {
+      "id": "collect-burst-cross-option",
+      "file": "fx/pickups/collect-burst.js",
+      "why": "APEX overtakes want the rings and twinkles without the white cross (design 05 §4.2)"
+    },
+    {
+      "id": "plasma-hollow-core",
+      "file": "fx/explosions/plasma-explosion.js",
+      "why": "the 0.17-0.4 s solid saturated ball and the 96 px light were 8,534 lit px, over the 7,500 budget alone; now ≤ 6,000 and hollow from 0.06 s (review 07 F4)"
+    },
+    {
+      "id": "implosion-no-soot",
+      "file": "fx/explosions/implosion.js",
+      "why": "the vapour puffs drawn in are dim violet filled discs on the ring, and two of the grit colours are grey (review 07 F8)"
+    },
+    {
+      "id": "firework-no-vapour",
+      "file": "fx/explosions/firework-burst.js",
+      "why": "the two grey #4a4458 VAPOUR spawns become a grey smoke disc through bloom (report 03 §5): 灰蒙蒙"
+    }
+  ]
+}
